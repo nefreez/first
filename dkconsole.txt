@@ -19,7 +19,8 @@
 		  int p=0; //P - номер адреса в списке адресов urllist
 		  for(p=0; p < urllist.size();p++){
 			  if(urllist.get(p).substring(0,4).equals("www.")){urllist.set(p,"http://"+urllist.get(p));}
-			  else if(!urllist.get(p).substring(0,4).equals("www.")&& !urllist.get(p).substring(0,7).equals("http://")){ 
+			  else if(!urllist.get(p).substring(0,4).equals("www.")
+			  && !urllist.get(p).substring(0,7).equals("http://")){ 
 				  urllist.set(p,"http://www."+urllist.get(p));}}//
 		  
 		return urllist; //получаем список отдельных адресов
