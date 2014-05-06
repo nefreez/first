@@ -1,117 +1,120 @@
-		import java.util.*;
+﻿	
+// search engine
+// two types of counters - overall and per website
+
+
+import java.util.*;
 		import java.net.*;
 		import java.io.*;
 		
 		
 		public class dkconsole {
-		public static List<String> urlinput () {        //класс для ввода URL
-  		System.out.println("Where to search?");  
+		public static List<String> urlinput () {        //URL input class
+		  System.out.println("Where to search?");  
 		  Scanner dkscannerurl = new Scanner(System.in);
-		  String urlflow = new String (dkscannerurl.nextLine()); // URL адреса в одну строчку
-		  urlflow +=",";  // закрываем список запятой
-
-		  List<String> urllist = new ArrayList<String>();    // заявляем список отдельных адресов
-		  int d = 0;                                         // d-координаты первой запятой
-		  int i = 0;                                         // i - координаты второй запятой
-		  for (i=0; i<urlflow.length();i++){if(urlflow.charAt(i)==','){ // разбиваем на отдельные адреса
-		  urllist.add(urlflow.substring(d,i)); d=i+1;}}
+		  String urlflow = new String (dkscannerurl.nextLine()); // URL addresses in one row
+		  List<String> urllist = Arrays.asList(urlflow.split(",")); // splitting URL-s separated by a comma
 		  
-		  int p=0; //P - номер адреса в списке адресов urllist
-		  for(p=0; p < urllist.size();p++){
-			  if(urllist.get(p).substring(0,4).equals("www.")){urllist.set(p,"http://"+urllist.get(p));}
-			  else if(!urllist.get(p).substring(0,4).equals("www.")&& !urllist.get(p).substring(0,7).equals("http://")){ 
-				  urllist.set(p,"http://www."+urllist.get(p));}}//
-		  
-		return urllist; //получаем список отдельных адресов
-		
+		  for(String url : urllist){                   // checking HTTP:// prefix
+			  if(!url.startsWith("http://"))urllist.set(urllist.indexOf(url),"http://"+url);}
+	
+		  return urllist; // a list of separated URL-s		
 }
-		public static List<String> wordinput () {       // класс для ввода искомых слов 
+		public static List<String> wordinput () {       // search words input class
 			System.out.println("What to search?");  
 			  Scanner dkscannerinput = new Scanner(System.in); 
-			  String inputflow = new String(dkscannerinput.nextLine());  // искомые слова в одну строчку
-			  inputflow +=",";
+			  String inputflow = new String(dkscannerinput.nextLine());  // search words in one row
+			  List<String>wordlist= Arrays.asList(inputflow.split(","));  // splitting words separated by a comma
+			  return wordlist; // a list of separated words
 			  
-			  List<String> wordlist = new ArrayList<String>();    // заявляем список отдельных слов 
-			  int d = 0;                                          // d-координаты первой запятой
-			  int i = 0;                                          // i - координаты второй запятой
-			  for (i=0; i<inputflow.length();i++){if(inputflow.charAt(i)==','){ //разбиваем на отдельные слова
-			  wordlist.add(inputflow.substring(d,i)); d=i+1;}}
-		
-			return wordlist; // получаем список отдельных искомых слов
 }
-
 		public static void main (String[] args)throws Exception {  
-		   List<String> urllist = new ArrayList<String>(); urllist.add(""); // например www.ag.ru,google.com,http://www.mail.ru
-		   List<String> wordlist = new ArrayList<String>(); wordlist.add("");  // например body,SEB,olololo,game
-		   List<Integer> counter1 = new ArrayList<Integer>(); counter1.add(0);  // заявляем счетчик совпадений слов для каждого сайта
-		   List<Integer> counter2 = new ArrayList<Integer>(); counter2.add(0);  // заявляем общий счетчик совпадений слов
-		   int charcount1 = 0; //счетчик букв по каждому сайту
-		   int charcount2 = 0; //счетчик букв для всех сайтов вместе
+		   List<String> urllist = new ArrayList<String>(); urllist.add(""); // empty URL list
+		   List<String> wordlist = new ArrayList<String>(); wordlist.add("");  // emty word list
+		   List<Integer> counter1 = new ArrayList<Integer>(); counter1.add(0);  // initialising match counter for each website
+		   List<Integer> counter2 = new ArrayList<Integer>(); counter2.add(0);  // initialising an overall match counter for all websites
+		   int charcount1 = 0; //character counter per each website
+		   int charcount2 = 0; //character counter for all websites in total
+		   boolean processtime = false; // process timer is turned off by default
 		   
-		   boolean processtime = false;
 		   System.out.println("Welcome!");
 		   System.out.println("press 'where' for address input");
 		   System.out.println("press 'what' for word input");
 		   System.out.println("press 'search' for search initialisation");
 		   System.out.println("press 'exit' for programm termination");
 		   System.out.println("process timer is OFF. Press 'timer on' or 'timer off' to toggle");
-		   Scanner abc = new Scanner(System.in); // главный слушатель команд
-		   int x = 1;
-		   while(x==1){						//бесконечный луп для ввода команд
-		   if (abc.hasNextLine()){ 
+		   
+		   
+		   
+		   for(;;){           //repeating loop for command input
+		  	Scanner abc = new Scanner(System.in); // command scanner
 			String command = new String(abc.nextLine());
-			if(command.equals("timer on")){processtime = true;System.out.println("process timer ON");} // включить таймер процессв
-			if(command.equals("timer off")){processtime = false;System.out.println("process timer OFF");} //выключить таймер процесса
-		    if(command.equals("where")){urllist = new ArrayList<String>(dkconsole.urlinput()); System.out.println(urllist);} //начать ввод адресов URL
-		    if(command.equals("what")){wordlist = new ArrayList<String>(dkconsole.wordinput());System.out.println(wordlist);} //начать ввод искомых слов
-		    if(command.equals("exit")){System.out.println("Good Bye");break;} //закрыть программу
-		    if(command.equals("search")){  // начать поиск
-			long processTimerStart = System.currentTimeMillis(); // старт таймера
-			for(int wwwnum =0; wwwnum <urllist.size(); wwwnum++){  // посайтовая проверка, wwwnum - номер сайта
-				  URL currentURL = new URL(urllist.get(wwwnum));   
+			if(command.equals("timer on")){processtime = true;System.out.println("process timer ON");} // turn process timer indication ON
+			if(command.equals("timer off")){processtime = false;System.out.println("process timer OFF");} // turn process time indication OFF
+		    if(command.equals("where")){urllist = new ArrayList<String>(dkconsole.urlinput()); System.out.println(urllist);} // start URL input
+		    if(command.equals("what")){wordlist = new ArrayList<String>(dkconsole.wordinput());System.out.println(wordlist);} // start search words input
+		    if(command.equals("exit")){System.out.println("Good Bye");break;} // terminate program
+		    if(command.equals("search")){                                     // start search process
+		    	long processTimerStart = System.currentTimeMillis(); // process timer start
+		    	for(String a :wordlist){counter2.add(0);} // each search word is given its counter - overall
+		    	
+		    	for(String url:urllist){     // check per each website
+		    		  URL currentURL = new URL (url); //url as string - to url as URL
 				      System.out.println("");
-				      System.out.println(currentURL); 
+				      System.out.println(currentURL); // indicating processed website 
+				      for(String a :wordlist){counter1.add(0);} // each search word is given its counter - per website
 				      
 					  BufferedReader in = new BufferedReader(new InputStreamReader(currentURL.openStream()));
-			          int p =0;  // p - номер искомого слова
-
-			          for(p=1;p<wordlist.size();p++){counter1.add(0);counter2.add(0);} // каждому искомому слову присваиваем свой счетчик
+			          String line = null; // line - a line polluted with tags
 			          
-			          String line = null; //line - строка сайта не очищенная от тэгов
-			          boolean tag = false;
-					  while((line=in.readLine()) != null){  // проверка по каждой строке
-					  String notagline = ""; // notagline - строка сайта очищенная от тэгов, готовая к обработке
-					  for (int i=0;i<line.length();i++){   // луп для исключения тэгов из строк поиска // i - номер буквы в исходной строке  
-						  if(line.charAt(i)=='<'){tag=true;}else if (line.charAt(i)=='>'){tag=false;};//если false - тэг закрыт. Если true - тэг открыт
-						  if(tag==false){notagline=notagline+line.charAt(i); if(line.charAt(i)!=' ') // если тэг закрыт, добавляем букву. Если открыт - не добавляем
-						  {charcount1++; charcount2++;}}}  // заодно счтаем кол-во символов в очищенной строке
-					  
-					  for(p=0;p<wordlist.size();p++){ //  подсчет совпадений слов //p - номер искомого слова 
-					      for(int i=0;i+wordlist.get(p).length()<notagline.length();i++ ){ // проверка по каждой букве в строке //i - номер буквы в строке
-					       if(notagline.substring(i,i+wordlist.get(p).length()).equals(wordlist.get(p)))
+					  while((line=in.readLine()) != null){  // check per each row of a website
+						  String notagline = ""; // notagline - a line peeled of <tags>
+						
+					  boolean tag = false; // <tag> filter is open by default	  					  
+					  	for (char bukva : line.toCharArray()){   // a loop for <tag> filtration 
+					  	  if(bukva=='<'){tag=true;} // filtering starts when "<" is noticed
+					  	  if(tag==false){notagline +=bukva;if(bukva!=' '){charcount1++; charcount2++;}} // adding char from line to notagline only
+					  	  																				// if filer is off(tag=false) 
+					  	  if (bukva=='>'){tag=false;} // letting through |the next character| after <tag> is closed
+					    }
+		                  
+					  	for(String word : wordlist){    // counting word matches 
+						  int p = wordlist.indexOf(word);   //p - number of the word in the list 
+						  for(int i=0;i+word.length()<notagline.length();i++ ){ // checking by each character in the line 
+							  													//i-number of the character in the line
+					       if(notagline.startsWith(word,i))
 					       {counter1.set(p,(counter1.get(p)+1));
-					        counter2.set(p,(counter2.get(p)+1));}
-					    }}}
-								  
-					  for(p=0;p<wordlist.size();p++){ // печатаем результат по каждому сайту
-						  System.out.println  (wordlist.get(p)+" matched "+ counter1.get(p) + " times");} 
-					  System.out.println("букв на сайте "+charcount1); 
-					  charcount1=0;// обнуляем результат индивидуальных счетчиков букв
-					  in.close(); //закрываем поток bufferedreader
-					  counter1.clear();counter1.add(0);// обнуляем результат индивидуальных счетчиков слов
-		}
-		System.out.println("");
-		System.out.println("TOTAL");  // печатаем общий результат
-		for(int p=0;p<wordlist.size();p++){System.out.println(wordlist.get(p)+" matched "+ counter2.get(p) + " times");}
-		counter2.clear();counter2.add(0); // обнуляем результат общего счетчика слов
-		long processTimerFinish = System.currentTimeMillis(); // стоп таймера
-		System.out.println ("букв на всех сайтах"+charcount2);
-		charcount2=0;     //обнуляем общий счетчик букв
-		if(processtime == true){System.out.println("Processing time "+(processTimerFinish - processTimerStart)+" milliseconds");}
-	
-		}
-		}}abc.close(); //закрываем сканер ввода команд
-		}}
+					       counter2.set(p,(counter2.get(p)+1));}
+						  }
+						}}
+					  in.close(); // closing the bufferedreader stream			  
+					  for(String word : wordlist){ // printing results of each website
+						  int p = wordlist.indexOf(word);  //p - number of the word in the list
+						  System.out.println  (word+" matched "+ counter1.get(p)+" times");}  
+					  System.out.println("букв на сайте "+charcount1);  //printing number of characters of each website
+					  charcount1=0;// resetting individual character counter
+					  counter1.clear();counter1.add(0);// resetting individual word match counter
+					  
+		    	}
+		    	long processTimerFinish = System.currentTimeMillis(); // stopping the timer
+			
+			
+		    	System.out.println("");
+		    	System.out.println("TOTAL");  // printing total results
+		
+		    	for(String word:wordlist){
+		    		int p = wordlist.indexOf(word);  //p - number of the word in the list
+		    		System.out.println(wordlist.get(p)+" matched "+ counter2.get(p) + " times");} //total amount of word matches for all websites
+		    	counter2.clear();counter2.add(0); // resetting the counter of total word matches for all websites
+		
+		    	System.out.println ("букв на всех сайтах"+charcount2);
+		    	charcount2=0;     //resetting the total counter of characters
+		    	if(processtime == true){System.out.println("Processing time "+(processTimerFinish - processTimerStart)+" milliseconds");}
+		    	// if timer displaying is ON - displaying timer results
+		    }
+		   }
+		  }
+		 }
 		
 		
 
