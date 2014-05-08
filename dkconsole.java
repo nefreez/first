@@ -14,7 +14,8 @@ public class dkconsole  {
       List<String> urllist = Arrays.asList(urlflow.split(", *")); // splitting URL-s separated by a comma
       
       for(String url : urllist) {                   // checking HTTP:// prefix
-         if(!url.startsWith("http://")) urllist.set(urllist.indexOf(url),"http://"+url);}
+         if(!url.startsWith("http://")) urllist.set(urllist.indexOf(url),"http://"+url);
+      }
       return urllist; // a list of separated URL-s		
    }     
    public static List<String> wordinput ()  {       // search words input class
