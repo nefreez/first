@@ -28,4 +28,5 @@ List of changes:
  counter1.add(0);
  counter2.add(0);
 "
--
+-" " before "{"
+
