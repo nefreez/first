@@ -83,7 +83,7 @@ public class dkconsole  {
                for(String word : wordlist) { // printing results of each website
                   int p = wordlist.indexOf(word);  //p - number of the word in the list
                   System.out.println  (word+" matched "+ counter1.get(p)+" times");}
-               System.out.println("Р±СѓРєРІ РЅР° СЃР°Р№С‚Рµ "+charcount1);  //printing number of characters of each website
+               System.out.println("characters at each website "+charcount1);  //printing number of characters of each website
                charcount1=0;// resetting individual character counter
                counter1.clear();counter1.add(0);// resetting individual word match counter
             }
