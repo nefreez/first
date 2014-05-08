@@ -22,4 +22,10 @@ List of changes:
 - dkconsole.txt renamed to dkconsole.java
 - indentation rules applied
 - list.split(",") to list.split(", *")
-- 
+- removed obsolete commands:
+"urllist.add("");
+ wordlist.add("");
+ counter1.add(0);
+ counter2.add(0);
+"
+-
