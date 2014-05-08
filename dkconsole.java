@@ -96,7 +96,7 @@ public class dkconsole  {
             }
             counter2.clear();counter2.add(0); // resetting the counter of total word matches for all websites
             
-            System.out.println ("Р±СѓРєРІ РЅР° РІСЃРµС… СЃР°Р№С‚Р°С…"+charcount2);
+            System.out.println ("Total number of characters on all websites is "+charcount2);
             charcount2=0;     //resetting the total counter of characters
             if(processtime == true) {System.out.println("Processing time "+(processTimerFinish - processTimerStart)+" milliseconds");
             }// if timer displaying is ON - displaying timer results
