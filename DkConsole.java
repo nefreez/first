@@ -18,12 +18,12 @@ public class DkConsole  {
       }
       return urllist; // a list of separated URL-s		
    }     
-   public static List<String> wordinput ()  {       // search words input class
+   public static List<String> wordlist ()  {       // search words input class
       System.out.println("What to search?");  
       Scanner dkscannerinput = new Scanner(System.in);
       String inputflow = new String(dkscannerinput.nextLine());  // search words in one row
-      List<String>wordlist= Arrays.asList(inputflow.split(", *"));  // splitting words separated by a comma
-      return wordlist; // a list of separated words
+      
+      return Arrays.asList(inputflow.split(", *")); // splitting words separated by a comma
    }
    public static void main (String[] args)throws Exception  {  
       List<String> urllist = new ArrayList<String>();  // empty URL list
@@ -47,7 +47,7 @@ public class DkConsole  {
          if(command.equals("timer on")) {processtime = true;System.out.println("process timer ON");} // turn process timer indication ON
          if(command.equals("timer off")) {processtime = false;System.out.println("process timer OFF");} // turn process time indication OFF
          if(command.equals("where")) {urllist = new ArrayList<String>(DkConsole.urlinput()); System.out.println(urllist);} // start URL input
-         if(command.equals("what")) {wordlist = new ArrayList<String>(DkConsole.wordinput());System.out.println(wordlist);} // start search words input
+         if(command.equals("what")) {wordlist = new ArrayList<String>(DkConsole.wordlist());System.out.println(wordlist);} // start search words input
          if(command.equals("exit")) {System.out.println("Good Bye");break;} // terminate program
          if(command.equals("search")) {                                     // start search process
             long processTimerStart = System.currentTimeMillis(); // process timer start
