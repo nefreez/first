@@ -25,10 +25,10 @@ public class dkconsole {
       return wordlist; // a list of separated words
    }
    public static void main (String[] args)throws Exception {  
-      List<String> urllist = new ArrayList<String>(); urllist.add(""); // empty URL list
-      List<String> wordlist = new ArrayList<String>(); wordlist.add("");  // emty word list
-      List<Integer> counter1 = new ArrayList<Integer>(); counter1.add(0);  // initialising match counter for each website
-      List<Integer> counter2 = new ArrayList<Integer>(); counter2.add(0);  // initialising an overall match counter for all websites
+      List<String> urllist = new ArrayList<String>();  // empty URL list
+      List<String> wordlist = new ArrayList<String>();  // emty word list
+      List<Integer> counter1 = new ArrayList<Integer>();  // initialising match counter for each website
+      List<Integer> counter2 = new ArrayList<Integer>();  // initialising an overall match counter for all websites
       int charcount1 = 0; //character counter per each website
       int charcount2 = 0; //character counter for all websites in total
       boolean processtime = false; // process timer is turned off by default
