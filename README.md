@@ -20,4 +20,4 @@ List of changes:
 Last change 08.May 2014
 List of changes:
 - dkconsole.txt renamed to dkconsole.java
-- 
+- indentation rules applied
