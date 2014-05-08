@@ -26,7 +26,6 @@ List of changes:
 "urllist.add("");
  wordlist.add("");
  counter1.add(0);
- counter2.add(0);
-"
--" " before "{"
+ counter2.add(0);"
+-" " added before "{"
 
