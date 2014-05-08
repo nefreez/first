@@ -6,7 +6,7 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 
-public class dkconsole  {
+public class DkConsole  {
    public static List<String> urlinput ()  {        //URL input class
       System.out.println("Where to search?");  
       Scanner dkscannerurl = new Scanner(System.in);
@@ -46,8 +46,8 @@ public class dkconsole  {
          String command = new String(abc.nextLine());
          if(command.equals("timer on")) {processtime = true;System.out.println("process timer ON");} // turn process timer indication ON
          if(command.equals("timer off")) {processtime = false;System.out.println("process timer OFF");} // turn process time indication OFF
-         if(command.equals("where")) {urllist = new ArrayList<String>(dkconsole.urlinput()); System.out.println(urllist);} // start URL input
-         if(command.equals("what")) {wordlist = new ArrayList<String>(dkconsole.wordinput());System.out.println(wordlist);} // start search words input
+         if(command.equals("where")) {urllist = new ArrayList<String>(DkConsole.urlinput()); System.out.println(urllist);} // start URL input
+         if(command.equals("what")) {wordlist = new ArrayList<String>(DkConsole.wordinput());System.out.println(wordlist);} // start search words input
          if(command.equals("exit")) {System.out.println("Good Bye");break;} // terminate program
          if(command.equals("search")) {                                     // start search process
             long processTimerStart = System.currentTimeMillis(); // process timer start
