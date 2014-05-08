@@ -1,7 +1,7 @@
 first
 =====
 
-dkconsole - a basic search engine.
+dkconsole.java - a basic search engine.
 Language - java
 
 what can it do:
@@ -21,3 +21,5 @@ Last change 08.May 2014
 List of changes:
 - dkconsole.txt renamed to dkconsole.java
 - indentation rules applied
+- list.split(",") to list.split(", *")
+- 
