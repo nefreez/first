@@ -11,7 +11,7 @@ public class dkconsole {
       System.out.println("Where to search?");  
       Scanner dkscannerurl = new Scanner(System.in);
       String urlflow = new String (dkscannerurl.nextLine()); // URL addresses in one row
-      List<String> urllist = Arrays.asList(urlflow.split(",")); // splitting URL-s separated by a comma
+      List<String> urllist = Arrays.asList(urlflow.split(", *")); // splitting URL-s separated by a comma
       
       for(String url : urllist){                   // checking HTTP:// prefix
          if(!url.startsWith("http://"))urllist.set(urllist.indexOf(url),"http://"+url);}
@@ -21,7 +21,7 @@ public class dkconsole {
       System.out.println("What to search?");  
       Scanner dkscannerinput = new Scanner(System.in);
       String inputflow = new String(dkscannerinput.nextLine());  // search words in one row
-      List<String>wordlist= Arrays.asList(inputflow.split(","));  // splitting words separated by a comma
+      List<String>wordlist= Arrays.asList(inputflow.split(", *"));  // splitting words separated by a comma
       return wordlist; // a list of separated words
    }
    public static void main (String[] args)throws Exception {  
